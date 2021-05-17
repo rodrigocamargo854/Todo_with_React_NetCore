@@ -1,4 +1,4 @@
-# Título do projeto
+# Todo List
 
 Neste tutorial vamos criar um ToDo app usando React no frontend e NetCore no backend. 
 
