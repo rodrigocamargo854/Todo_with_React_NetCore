@@ -2,7 +2,13 @@ import React from 'react';
 import FormatDate from '../FormatDate';
 
 export default (props) => {
+    const handleToggleStatusTask = async (event) => {
+        await props.toggleTaskStatus(event.target.value);
+    };
 
+    const handleUpdateTask = async (task) => {
+        await props.updateTask(JSON.parse(task));
+    }
     const handleDelete = async (taskId) => {
         await props.deleteTask(taskId);
     }
@@ -15,10 +21,10 @@ export default (props) => {
                         <thead className="thead-dark">
                             <tr>
                                 <th></th>
-                                <th>Task</th>
-                                <th>Created at</th>
-                                <th>Last modified</th>
-                                <th>Concluded at</th>
+                                <th>Tarefa</th>
+                                <th>Criada at</th>
+                                <th>Última Modificação</th>
+                                <th>Concluída em</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -29,6 +35,7 @@ export default (props) => {
                                         <div className="form-check">
                                             <input
                                                 checked={task.isDone}
+                                                onChange={handleToggleStatusTask}
                                                 className="form-check-input"
                                                 type="checkbox"
                                                 value={task.id} />
@@ -42,12 +49,14 @@ export default (props) => {
                                         <button
                                             type="button"
                                             className="btn btn-outline-info mr-2"
-                                        >Edit</button>
+                                            onClick={() => handleUpdateTask(JSON.stringify(task))}
+                                        >Editar</button>
+
                                         <button
                                             onClick={() => handleDelete(task.id)}
                                             type="button"
                                             className="btn btn-outline-danger"
-                                        >Delete</button>
+                                        >Deletar</button>
                                     </td>
                                 </tr>
                             )}

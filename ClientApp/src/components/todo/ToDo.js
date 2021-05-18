@@ -1,15 +1,105 @@
 import React, { useState, useEffect } from 'react';
-import ToDoList from './ToDoList';
+import ToDoList from './ToDoList'
 
 export const ToDo = () => {
 
+    const [name, setName] = useState("");
     const [tasks, setTasks] = useState([]);
-    const [name, setName] = useState();
+    const [taskToEdit, setTaskToEdit] = useState(null);
 
     useEffect(() => {
         handleGetTasks();
-
     }, []);
+
+    const handleTaskNameField = (event) => {
+
+        if (!event.target.value)
+            setTaskToEdit(null);
+
+        if (taskToEdit)
+            taskToEdit.name = event.target.value;
+
+        setName(event.target.value);
+        isSaveButtonDisabled();
+    };
+
+    const getTasks = async () => {
+        const response = await fetch('todo');
+        const data = await response.json();
+        return data;
+    };
+
+    const saveTasks = async () => {
+        await fetch('todo', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                Name: name,
+                IsDone: false
+            })
+        });
+    };
+
+    const updateTask = async (task) => {
+        await fetch('todo/' + taskToEdit.id, {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(taskToEdit)
+        });
+    };
+
+    const deleteTask = async (taskId) => {
+        await fetch('todo/' + taskId, {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' }
+        });
+    };
+
+    const toggleTaskStatus = async (taskId) => {
+        await fetch('todo/' + taskId, {
+            method: 'patch',
+            headers: { 'Content-Type': 'application/json' }
+        });
+    };
+
+    const handleGetTasks = async () => {
+        let tasks = await getTasks();
+        setTasks(tasks);
+    };
+
+    const handleSubmit = async (event) => {
+        await saveTasks();
+        setName("");
+        await handleGetTasks();
+    };
+
+    const handleTaskUpdate = async () => {
+        await updateTask(taskToEdit);
+        setName("");
+        setTaskToEdit(null);
+        await handleGetTasks();
+    };
+
+    const handleTaskDelete = async (taskId) => {
+        await deleteTask(taskId);
+        await handleGetTasks();
+    };
+
+    const handleTaskStatus = async (taskId) => {
+        await toggleTaskStatus(taskId);
+        await handleGetTasks();
+    };
+
+    const setEditTaskMode = (task) => {
+        setTaskToEdit(task);
+        setName(task.name);
+    };
+
+    const isSaveButtonDisabled = () => {
+        if (name)
+            return false
+        return true;
+    };
 
     const renderCreateTask = () => {
         return <div className="container mb-3">
@@ -23,7 +113,7 @@ export const ToDo = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label>Name</label>
+                                        <label>Nome</label>
                                         <input
                                             type="text"
                                             onChange={handleTaskNameField}
@@ -35,92 +125,37 @@ export const ToDo = () => {
                                     </div>
                                 </div>
                                 <button
-                                    type='button'
-                                    className={isSaveButtonDisabled() ? "btn btn-secondary" :
-                                        "btn btn-sucess"}
-                                    onclick={handleSubmit}
+                                    type="button"
+                                    className={isSaveButtonDisabled() ? "btn btn-secondary" : "btn btn-success"}
+                                    onClick={handleSubmit}
                                     disabled={isSaveButtonDisabled()}
+                                    hidden={taskToEdit != null}
                                 >
-                                    Add
-                                </button>
+                                    Adicionar
+                            </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-success"
+                                    onClick={handleTaskUpdate}
+                                    disabled={taskToEdit == null}
+                                    hidden={taskToEdit == null}
+                                >
+                                    Salvar alterações
+                            </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    }
-    //metodos para delete
-    const deleteTask = async (taskId) => {
-        await fetch('todo/' + taskId, {
-            method: 'delete',
-            headers: { 'Content-Type': 'application/json' }
-        });
     };
 
-    const handleTaskDelete = async (taskId) => {
-        await deleteTask(taskId);
-        await handleGetTasks();
-    };
-    //A propriedade deleteTask recebe a referência de handleTaskDelete que 
-    //será acionada pelo compenente filho ToDoList.js 
-    //assim que o usuário clicar no botão Delete
-
-    const renderToDoList = () => {
-        return <ToDoList
-        tasks={tasks}
-        deleteTask={handleTaskDelete}
-        />
-           };
-       
-
-
-
-    
-
-    const saveTasks = async () => {
-        await fetch('todo', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                Name: name,
-                IsDone: false
-            })
-        });
-    };
-
-    const handleSubmit = async (event) => {
-        await saveTasks();
-        setName("");
-        await handleGetTasks();
-    };
-
-    const isSaveButtonDisabled = () => {
-        if (name)
-            return false
-        return true;
-    };
-
-    const handleTaskNameField = (event) => {
-        setName(event.target.value);
-        isSaveButtonDisabled();
-    };
-
-
-
-    const geTasks = async () => {
-        const response = await fetch('todo');
-        const data = await response.json();
-        return data;
-    };
-
-    const handleGetTasks = async () => {
-        let tasks = await geTasks();
-        setTasks(tasks);
-    };
     const renderToDoList = () => {
         return <ToDoList
             tasks={tasks}
+            toggleTaskStatus={handleTaskStatus}
+            updateTask={setEditTaskMode}
+            deleteTask={handleTaskDelete}
         />
     };
 
@@ -130,4 +165,5 @@ export const ToDo = () => {
             {renderToDoList()}
         </div>
     );
+
 };
