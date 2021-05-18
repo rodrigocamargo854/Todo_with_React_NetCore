@@ -3,6 +3,10 @@ import FormatDate from '../FormatDate';
 
 export default (props) => {
 
+    const handleDelete = async (taskId) => {
+        await props.deleteTask(taskId);
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -40,6 +44,7 @@ export default (props) => {
                                             className="btn btn-outline-info mr-2"
                                         >Edit</button>
                                         <button
+                                            onClick={() => handleDelete(task.id)}
                                             type="button"
                                             className="btn btn-outline-danger"
                                         >Delete</button>
