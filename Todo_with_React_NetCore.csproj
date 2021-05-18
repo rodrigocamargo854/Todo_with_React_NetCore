@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.4" />
+    <PackageReference Include="Moment.js" Version="2.27.0" />
   </ItemGroup>
 
   <ItemGroup>

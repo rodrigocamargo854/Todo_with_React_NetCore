@@ -1,16 +1,55 @@
 import React from 'react';
-export default(props) => {
+import FormatDate from '../FormatDate';
+
+export default (props) => {
 
     return (
-<div className="container">
-    <div className="row">
-        <div className="col-12">
-           
-
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th>Task</th>
+                                <th>Created at</th>
+                                <th>Last modified</th>
+                                <th>Concluded at</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {props.tasks.map(task =>
+                                <tr key={task.id}>
+                                    <td>
+                                        <div className="form-check">
+                                            <input
+                                                checked={task.isDone}
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value={task.id} />
+                                        </div>
+                                    </td>
+                                    <td>{task.name}</td>
+                                    <td>{FormatDate(task.createdAt || "")}</td>
+                                    <td>{FormatDate(task.editedAt || "")}</td>
+                                    <td>{FormatDate(task.dateConclusion || "")}</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-info mr-2"
+                                        >Edit</button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-danger"
+                                        >Delete</button>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-
-</div>
-
-    )
+    );
 }
