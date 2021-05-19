@@ -22,7 +22,7 @@ export default (props) => {
                             <tr>
                                 <th></th>
                                 <th>Tarefa</th>
-                                <th>Criada at</th>
+                                <th>Criada em</th>
                                 <th>Última Modificação</th>
                                 <th>Concluída em</th>
                                 <th></th>

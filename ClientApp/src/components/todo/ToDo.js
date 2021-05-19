@@ -107,7 +107,7 @@ export const ToDo = () => {
                 <div className="col-12">
                     <div className="card border-dark">
                         <div className="card-header">
-                            Create Task
+                            Criar Tarefa
                         </div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>

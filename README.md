@@ -1,3 +1,5 @@
+# CRUD using React and NetCore
+
 # Todo List
 
 Neste tutorial vamos criar um ToDo app usando React no frontend e NetCore no backend. 
@@ -17,33 +19,21 @@ Esse deve ser o resultado final
 
 
 ## 🚀 Começando
-
+Para executar a aplicação, rodar o comando dentro da pasta raiz
+#dotnet run
 
 
 
 ### 📋 Pré-requisitos
-
+.
 
 ```
 
-### 🔧 Instalação
 
-
-## ⚙️ Executando os testes
-
-
-### 🔩 Analise os testes de ponta a ponta
-
-
-
-### ⌨️ E testes de estilo de codificação
-
-
-
-## 📦 Desenvolvimento
 
 
 ## 🛠️ Construído com
+<img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&style=Plastic"/> <img alt="C#" src="https://img.shields.io/badge/c%23%20-%23239120.svg?&style=for-the-badge&logo=c-sharp&logoColor=white&style=Plastic"/>
 
 
 ## 🖇️ Colaborando
