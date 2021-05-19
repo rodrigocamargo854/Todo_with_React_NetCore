@@ -22,36 +22,8 @@ Esse deve ser o resultado final
 Para executar a aplicação, rodar o comando dentro da pasta raiz
 #dotnet run
 
-
-
-### 📋 Pré-requisitos
-.
-
-```
-
-
-
-
-## 🛠️ Construído com
-
-
-## 🖇️ Colaborando
-
-
-## 📌 Versão
-
-
-## ✒️ Autores
-
-
-
-## 📄 Licença
-
-
-## 🎁 Expressões de gratidão
-
-
-
-
 ---
 ⌨️ com ❤️ por [Rodrigo Camargo]() 😊
+
+###Projeto Original
+<link>https://www.ninjadevspace.com.br/post/crud-react-netcore</link>
