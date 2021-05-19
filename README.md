@@ -33,7 +33,6 @@ Para executar a aplicação, rodar o comando dentro da pasta raiz
 
 
 ## 🛠️ Construído com
-<img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&style=Plastic"/> <img alt="C#" src="https://img.shields.io/badge/c%23%20-%23239120.svg?&style=for-the-badge&logo=c-sharp&logoColor=white&style=Plastic"/>
 
 
 ## 🖇️ Colaborando
